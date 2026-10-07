@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Climate Zone Travel Advisors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff8ec;--ink:#1f2a37;--card:#ffffff;--line:#e9dcc3;--muted:#5b6672;
+--eq:#1fa463;--tr:#f08a24;--te:#2b8cd6;--po:#7fd3f0;--z:#1fa463;--zs:#dff5e8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14202b;--ink:#f2efe6;--card:#1d2d3b;--line:#2f4356;--muted:#a9b6c2}}
+:root[data-theme="dark"]{--bg:#14202b;--ink:#f2efe6;--card:#1d2d3b;--line:#2f4356;--muted:#a9b6c2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:Fredoka,Nunito,sans-serif;line-height:1.1;margin:0}
+h2{font-size:clamp(28px,5vw,40px);margin-bottom:8px}
+h3{font-size:21px}
+p{margin:0 0 10px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+section{padding:46px 0}
+.sub{color:var(--muted);max-width:60ch;margin-bottom:22px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:3px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav .wrap{display:flex;gap:6px;padding:8px 18px}
+nav a{font:600 15px Fredoka,sans-serif;color:var(--ink);text-decoration:none;padding:7px 14px;border-radius:99px}
+nav a:hover,nav a:focus-visible{background:var(--zs);outline:2px solid var(--z)}
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(135deg,var(--eq) 0 25%,var(--tr) 25% 50%,var(--te) 50% 75%,#4ab6dc 75%);padding:60px 0 70px}
+.hero:after{content:"";position:absolute;inset:0;background:rgba(10,25,40,.38)}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(40px,9vw,84px);font-weight:700;max-width:12ch;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.hero p{font-size:20px;max-width:46ch;margin:14px 0 22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#fff;color:#1f2a37;font:600 15px Fredoka,sans-serif;padding:6px 14px;border-radius:99px}
+.float{position:absolute;right:4%;top:40px;font-size:clamp(46px,9vw,100px);z-index:1;line-height:1.1;text-align:center}
+.float span{display:block;animation:bob 3.4s ease-in-out infinite}
+.float span:nth-child(2){animation-delay:-1.1s;margin-left:30px}
+.float span:nth-child(3){animation-delay:-2.2s}
+@keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
+@media (prefers-reduced-motion:reduce){.float span{animation:none}html{scroll-behavior:auto}}
+@media (max-width:640px){.float{display:none}}
+/* mission ticket */
+.ticket{display:grid;grid-template-columns:1fr auto;background:var(--card);border:3px dashed var(--tr);border-radius:22px;overflow:hidden}
+.ticket>div{padding:22px}
+.ticket .stub{background:var(--tr);color:#fff;font:700 24px Fredoka,sans-serif;display:flex;align-items:center;text-align:center;min-width:130px;justify-content:center}
+@media (max-width:560px){.ticket{grid-template-columns:1fr}.ticket .stub{padding:14px}}
+.ticket ul{margin:8px 0 0;padding-left:20px}
+/* zones */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.tab{font:600 18px Fredoka,sans-serif;border:3px solid var(--c);background:var(--card);color:var(--ink);padding:10px 18px;border-radius:16px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--c);color:#fff}
+.tab:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.panel{grid-template-columns:1fr}}
+.box{background:var(--card);border:3px solid var(--z);border-radius:22px;padding:20px}
+.big{background:var(--z);color:#fff;text-align:center;border-radius:22px;padding:24px}
+.big .pic{font-size:78px;line-height:1.1}
+.big h3{font-size:32px;margin-top:6px}
+.big p{margin:6px 0 0}
+.meter{height:22px;border-radius:99px;background:linear-gradient(90deg,#4ab6dc,#e8f4fb 45%,#ffd36b 70%,#f0561f);position:relative;margin:30px 0 6px}
+.meter i{position:absolute;top:0;bottom:0;background:rgba(20,30,40,.55);border:3px solid var(--ink);border-radius:99px}
+.scale{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.drops{font-size:26px;letter-spacing:3px}
+.drops s{text-decoration:none;opacity:.2;filter:grayscale(1)}
+.pack{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.pack span{background:var(--zs);color:#1f2a37;border-radius:14px;padding:6px 12px;font-weight:600}
+.pack b{font-size:24px;margin-right:4px}
+.kz{margin-top:16px;border-left:8px solid var(--te);background:var(--card);padding:12px 16px;border-radius:0 16px 16px 0}
+/* vocab */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.flip{perspective:700px;height:130px;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px}
+.flip .f{background:var(--c);color:#fff;font:600 23px Fredoka,sans-serif}
+.flip .b{background:var(--card);border:3px solid var(--c);transform:rotateY(180deg);font-size:16px}
+.flip:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:18px}
+/* questions */
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;counter-reset:q}
+.q{background:var(--card);border-radius:20px;padding:18px 18px 18px 74px;position:relative;border:3px solid var(--line);font-weight:600}
+.q:before{counter-increment:q;content:counter(q);position:absolute;left:16px;top:14px;width:44px;height:44px;border-radius:50%;background:var(--c);color:#fff;font:700 24px/44px Fredoka,sans-serif;text-align:center}
+/* roles & steps */
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:26px}
+.role{background:var(--card);border-radius:20px;padding:16px;text-align:center;border-bottom:8px solid var(--c);border-top:3px solid var(--line);border-left:3px solid var(--line);border-right:3px solid var(--line)}
+.role .e{font-size:38px}.role h3{font-size:19px}.role p{font-size:15px;color:var(--muted);margin:4px 0 0}
+.timer{background:var(--ink);color:var(--bg);border-radius:22px;padding:20px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+@media (max-width:640px){.timer{grid-template-columns:1fr;text-align:center}}
+.clock{font:700 60px/1 Fredoka,sans-serif;font-variant-numeric:tabular-nums}
+.btn{font:600 17px Fredoka,sans-serif;border:0;border-radius:99px;padding:10px 22px;cursor:pointer;background:var(--tr);color:#fff;margin:10px 8px 0 0}
+.btn.alt{background:transparent;border:2px solid currentColor;color:inherit}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+.step{border-radius:16px;padding:12px;background:rgba(255,255,255,.12);border:3px solid transparent;color:inherit}
+.step.now{background:var(--c);color:#fff;border-color:#fff}
+.step b{font:600 18px Fredoka,sans-serif;display:block}
+.step small{opacity:.85}
+/* starters */
+.starters{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.st{background:var(--card);border-radius:18px;padding:14px 16px;border-left:10px solid var(--c);font-weight:600}
+.blank{display:inline-block;min-width:54px;border-bottom:3px solid var(--c)}
+.model{margin-top:22px;background:var(--te);color:#fff;border-radius:22px;padding:22px 24px}
+.model q{display:block;font:500 22px/1.4 Fredoka,sans-serif;margin-top:8px;quotes:none}
+/* teacher */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:16px;overflow:hidden;font-size:15px}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:2px solid var(--line)}
+th{background:var(--z);color:#fff;font-family:Fredoka,sans-serif;font-weight:600}
+.scroll{overflow-x:auto}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:5px 0;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--z);margin-top:2px;flex:none}
+.cs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.c4{border-radius:18px;padding:16px;color:#fff;background:var(--c)}
+.c4 h3{margin-bottom:6px}
+.c4 p{margin:0;font-size:15px}
+footer{padding:26px 0;text-align:center;color:var(--muted);font-size:14px;border-top:3px solid var(--line)}
+.themebtn{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:10;border-radius:50%;width:46px;height:46px;border:3px solid var(--ink);background:var(--card);font-size:20px;cursor:pointer}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="float" aria-hidden="true"><span>🌴</span><span>🐪</span><span>🐧</span></div>
+  <div class="wrap">
+    <div class="chips"><span class="chip">Geography + English</span><span class="chip">Grade 8</span><span class="chip">A2–B1</span><span class="chip">15 minutes</span><span class="chip">Groups of 4–5</span></div>
+    <h1 style="margin-top:20px">Climate Zone Travel Advisors</h1>
+    <p>A tourist from Kazakhstan wants to visit one climate zone. Be the expert. Give clear advice!</p>
+  </div>
+</header>
+
+<nav aria-label="Sections"><div class="wrap">
+<a href="#mission">Mission</a><a href="#zones">Zones</a><a href="#words">Words</a><a href="#questions">Questions</a><a href="#steps">Your 15 minutes</a><a href="#speak">Speak</a><a href="#teacher">Teacher</a>
+</div></nav>
+
+<main>
+<section id="mission"><div class="wrap">
+  <h2>Your mission</h2>
+  <div class="ticket">
+    <div>
+      <h3>Give the tourist a 1-minute “travel tip”</h3>
+      <ul>
+        <li><b>Weather:</b> what is it like?</li>
+        <li><b>Packing:</b> what do you take?</li>
+        <li><b>Activities:</b> what can you do there?</li>
+      </ul>
+      <p style="margin-top:12px">Present your tip to the class. Everyone in the group speaks!</p>
+    </div>
+    <div class="stub">✈️<br>BOARDING<br>PASS</div>
+  </div>
+</div></section>
+
+<section id="zones" style="background:var(--zs);transition:background .3s"><div class="wrap">
+  <h2>Choose a zone</h2>
+  <p class="sub">Tap a zone. Look at the picture, the temperature and the rainfall. Then discuss the guiding questions.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel"></div>
+  <div class="kz"><b>🇰🇿 Kazakhstan is temperate.</b> Karaganda: –15°C in January, +20°C in July. Medium rainfall. Four seasons. Why is your zone different?</div>
+</div></section>
+
+<section id="words"><div class="wrap">
+  <h2>Vocabulary bank</h2>
+  <p class="sub">12 words. Tap a card to see the simple meaning.</p>
+  <div class="vgrid" id="vgrid"></div>
+</div></section>
+
+<section id="questions" style="background:var(--card)"><div class="wrap">
+  <h2>Five guiding questions</h2>
+  <p class="sub">Discuss in English. Write keywords only, not full sentences.</p>
+  <div class="qs" id="qs"></div>
+</div></section>
+
+<section id="steps"><div class="wrap">
+  <h2>Your 15 minutes</h2>
+  <p class="sub">First choose roles. Then follow the steps.</p>
+  <div class="roles" id="roles"></div>
+  <div class="timer">
+    <div><div class="clock" id="clock" aria-live="off">15:00</div>
+      <button class="btn" id="go">Start</button><button class="btn alt" id="reset">Reset</button></div>
+    <div class="steps" id="stepbox"></div>
+  </div>
+</div></section>
+
+<section id="speak" style="background:var(--card)"><div class="wrap">
+  <h2>Sentence starters</h2>
+  <p class="sub">Use them to build your travel tip. Point to the pictures if you need help.</p>
+  <div class="starters" id="starters"></div>
+  <div class="model">
+    <b style="font:600 18px Fredoka,sans-serif">🎤 Model presentation (the teacher reads first)</b>
+    <q>“Welcome to the tropical zone! It is near the equator. It is hot and dry in the desert. The temperature is 35°C in summer. Take a hat, sunglasses and water. It is different from Kazakhstan because we have cold winters.”</q>
+  </div>
+</div></section>
+
+<section id="teacher"><div class="wrap" style="--z:#7b4fd1">
+  <h2>For the teacher</h2>
+  <p class="sub">Preparation (5 min): print or project the map, picture cards and climate charts. Let groups draw a zone card. Write the 12 words on the board.</p>
+  <div class="tgrid">
+    <div class="scroll"><table>
+      <tr><th>Time</th><th>Stage</th><th>Teacher action</th></tr>
+      <tr><td>0:00–2:00</td><td>Warm-up</td><td>Show the map. “Where is Kazakhstan? Hot or cold?” Pre-teach 4–5 words with pictures.</td></tr>
+      <tr><td>2:00–5:00</td><td>Instructions and roles</td><td>Read the model aloud. Hand out cards. Ask: “What do you do first?”</td></tr>
+      <tr><td>5:00–10:00</td><td>Group discussion</td><td>Monitor. Listen for English. Prompt with guiding questions.</td></tr>
+      <tr><td>10:00–12:00</td><td>Prepare</td><td>Remind groups that everyone speaks.</td></tr>
+      <tr><td>12:00–15:00</td><td>Presentations</td><td>About 1 minute per group. Give brief feedback.</td></tr>
+    </table>
+    <p style="margin-top:10px"><b>Short on time?</b> Only 2–3 groups present. The others give a thumbs up 👍 to the tip they liked best.</p></div>
+    <div class="box" style="border-color:#7b4fd1">
+      <h3>Supporting weaker students</h3>
+      <ul style="padding-left:20px;margin:8px 0 0">
+        <li>Give them the Reader or Packing Expert role.</li>
+        <li>Let them use sentence starters and point to pictures.</li>
+        <li>Pre-teach the 4–5 hardest words.</li>
+        <li>Short answers first, then expand: “It is hot.” → “It is hot and dry.”</li>
+        <li>Pair with a stronger partner for rehearsal.</li>
+        <li>A brief word in Russian or Kazakh is OK as a bridge. Then give the English term.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:36px">Assessment checklist</h2>
+  <div class="tgrid check" id="assess"></div>
+  <p style="margin-top:14px"><b>Glow and grow:</b> for each group write one thing that was good and one thing to improve. Example: “Glow: accurate temperature description. Grow: use <i>There is</i> for rainfall.” Score content and language separately, so grammar mistakes do not lower the Geography mark.</p>
+
+  <h2 style="margin-top:36px">The 4Cs of CLIL</h2>
+  <div class="cs" id="cs"></div>
+  <p style="margin-top:18px"><b>Geography objective:</b> identify the four climate zones, locate them on a map, describe temperature and rainfall, and compare with Kazakhstan.<br>
+  <b>English objective:</b> use climate vocabulary and simple present sentences (<i>It is hot. There is a lot of rain.</i>) and give short advice (<i>Take a hat.</i>).</p>
+</div></section>
+</main>
+<footer>CLIL · Geography + English · Grade 8</footer>
+<button class="themebtn" id="theme" aria-label="Switch light and dark theme">🌗</button>
+
+<script>
+var Z=[
+{k:'Equatorial',c:'#1fa463',s:'#dff5e8',pic:'🌴🦜',place:'Singapore (near the equator)',t:'27°C all year',lo:27,hi:27,rain:5,rl:'Very high',desc:'Hot and humid. It rains a lot.',pack:[['👕','T-shirt'],['🩳','shorts'],['☂️','umbrella'],['🧴','sun cream']]},
+{k:'Tropical',c:'#f08a24',s:'#fdecd6',pic:'🏜️🐪',place:'Cairo / Dubai',t:'20–35°C',lo:20,hi:35,rain:1,rl:'Very low or seasonal',desc:'Hot and dry in the desert.',pack:[['🧢','hat'],['🕶️','sunglasses'],['💧','water'],['👕','T-shirt']]},
+{k:'Temperate',c:'#2b8cd6',s:'#dcecf9',pic:'🌾🏔️',place:'Karaganda, Kazakhstan',t:'–15°C (Jan) to +20°C (Jul)',lo:-15,hi:20,rain:3,rl:'Medium',desc:'Four seasons. Warm summers and cold winters.',pack:[['🧥','warm coat'],['🥾','boots'],['🧣','scarf'],['👕','T-shirt (summer)']]},
+{k:'Polar',c:'#3aa9d2',s:'#e0f4fb',pic:'🐧❄️',place:'Antarctica',t:'–30°C or colder',lo:-40,hi:-30,rain:1,rl:'Very low (snow)',desc:'Freezing and white. Very little snow falls.',pack:[['🧥','warm coat'],['🧤','gloves'],['🥾','boots'],['🕶️','sunglasses']]}];
+var V=[['climate zone','a large area with a similar type of weather'],['equator','the imaginary line around the middle of Earth'],['equatorial','very close to the equator; hot and wet'],['tropical','hot area near the equator'],['temperate','not too hot, not too cold; has four seasons'],['polar','very cold area near the North and South Poles'],['temperature','how hot or cold it is'],['rainfall','the amount of rain'],['humid','wet air, with lots of water in it'],['dry','with little or no rain'],['season','spring, summer, autumn or winter'],['freezing','extremely cold, below 0°C']];
+var Q=['Where is your climate zone on the map? Is it near the equator or far from it?','What is the temperature like in this zone?','Is it wet or dry? How much rain or snow is there?','What can tourists wear and pack?','Why is this zone different from Kazakhstan’s climate zone?'];
+var R=[['📖','Reader','reads the question','#1fa463'],['🗺️','Map Expert','shows the place on the map','#2b8cd6'],['📊','Climate Expert','reads the chart','#f08a24'],['🎒','Packing Expert','suggests clothes','#e0529c'],['🎤','Speaker','presents. Everyone helps!','#7b4fd1']];
+var S=[['👀','Look','zone card, map and chart',3,'#1fa463'],['💬','Discuss','5 questions. Keywords only',5,'#2b8cd6'],['✍️','Prepare','1-minute tip. Everyone speaks',3,'#f08a24'],['🎤','Present','about 1 minute per group',4,'#7b4fd1']];
+var ST=['Our zone is the ______ zone. It is near / far from the equator.','On the map, it is in ______ (Africa / Asia / Antarctica).','The temperature is ______°C. It is hot / warm / cold / freezing.','It is wet / dry. There is a lot of / not much rain (snow).','In summer / winter it is ______.','Tourists need to take ______ because ______.','Kazakhstan is different because ______.','I think this zone is good for tourists who like ______.'];
+var A=[['Content (Geography)',['Names the climate zone correctly','Shows its location on the map','Describes temperature and rainfall correctly','Compares with Kazakhstan’s climate']],['Language (English)',['Uses at least 4 vocabulary words correctly','Speaks in full, understandable sentences','Every group member speaks in English']],['Communication',['Listens and responds to group members','Presents clearly with visual support']]];
+var C4=[['Content','climate zones, location, temperature, rainfall','#1fa463'],['Communication','group talk and a short presentation with topic words and starters','#2b8cd6'],['Cognition','read charts, compare with Kazakhstan, explain why climates differ, give advice','#f08a24'],['Culture','link global climates to our own country and how people live and dress','#e0529c']];
+var $=function(i){return document.getElementById(i)};
+var cols=['#1fa463','#2b8cd6','#f08a24','#e0529c','#7b4fd1'];
+
+/* zones */
+var tabs=$('tabs'),panel=$('panel');
+Z.forEach(function(z,i){var b=document.createElement('button');b.className='tab';b.role='tab';b.textContent=z.k;b.style.setProperty('--c',z.c);b.onclick=function(){show(i)};tabs.appendChild(b)});
+function show(i){
+  var z=Z[i],sec=$('zones');
+  [].forEach.call(tabs.children,function(b,j){b.setAttribute('aria-selected',j===i)});
+  sec.style.background=z.s;
+  panel.style.setProperty('--z',z.c);
+  var l=(z.lo+40)/80*100,w=Math.max((z.hi-z.lo)/80*100,3);
+  var d='';for(var k=1;k<=5;k++)d+=k<=z.rain?'💧':'<s>💧</s>';
+  var p=z.pack.map(function(x){return '<span><b>'+x[0]+'</b>'+x[1]+'</span>'}).join('');
+  panel.innerHTML='<div class="big"><div class="pic" aria-hidden="true">'+z.pic+'</div><h3>'+z.k+' zone</h3><p>'+z.place+'</p><p><b>'+z.desc+'</b></p></div>'+
+  '<div class="box"><h3>🌡️ Temperature: '+z.t+'</h3><div class="meter" aria-hidden="true"><i style="left:'+l+'%;width:'+w+'%"></i></div><div class="scale"><span>–40°C</span><span>0°C</span><span>+40°C</span></div>'+
+  '<h3 style="margin-top:18px">🌧️ Rainfall: '+z.rl+'</h3><div class="drops" aria-hidden="true">'+d+'</div>'+
+  '<h3 style="margin-top:18px">🎒 What to pack</h3><div class="pack">'+p+'</div></div>';
+}
+show(2);
+
+/* vocab */
+V.forEach(function(v,i){var b=document.createElement('button');b.className='flip';b.style.setProperty('--c',cols[i%5]);
+ b.innerHTML='<div class="in"><div class="f">'+v[0]+'</div><div class="b">'+v[1]+'</div></div>';
+ b.onclick=function(){b.classList.toggle('on')};$('vgrid').appendChild(b)});
+Q.forEach(function(q,i){var d=document.createElement('div');d.className='q';d.style.setProperty('--c',cols[i]);d.textContent=q;$('qs').appendChild(d)});
+R.forEach(function(r){var d=document.createElement('div');d.className='role';d.style.setProperty('--c',r[3]);d.innerHTML='<div class="e">'+r[0]+'</div><h3>'+r[1]+'</h3><p>'+r[2]+'</p>';$('roles').appendChild(d)});
+ST.forEach(function(s,i){var d=document.createElement('div');d.className='st';d.style.setProperty('--c',cols[i%5]);d.innerHTML=s.replace(/_+/g,'<span class="blank"></span>');$('starters').appendChild(d)});
+A.forEach(function(g,i){var d=document.createElement('div');d.className='box';d.style.borderColor=cols[i];d.innerHTML='<h3>'+g[0]+'</h3>'+g[1].map(function(t){return '<label><input type="checkbox"><span>'+t+'</span></label>'}).join('');$('assess').appendChild(d)});
+C4.forEach(function(c){var d=document.createElement('div');d.className='c4';d.style.setProperty('--c',c[2]);d.innerHTML='<h3>'+c[0]+'</h3><p>'+c[1]+'</p>';$('cs').appendChild(d)});
+
+/* timer */
+var total=15*60,left=total,iv=null,sb=$('stepbox');
+S.forEach(function(s){var d=document.createElement('div');d.className='step';d.style.setProperty('--c',s[4]);d.innerHTML='<b>'+s[0]+' '+s[1]+'</b><small>'+s[3]+' min · '+s[2]+'</small>';sb.appendChild(d)});
+function draw(){
+  var m=Math.floor(left/60),s=left%60;$('clock').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  var el=(total-left)/60,acc=0,idx=-1;
+  if(left<total){for(var i=0;i<S.length;i++){acc+=S[i][3];if(el<acc||i===S.length-1){idx=i;break}}}
+  [].forEach.call(sb.children,function(c,i){c.classList.toggle('now',i===idx)});
+}
+$('go').onclick=function(){
+  if(iv){clearInterval(iv);iv=null;this.textContent='Resume';return}
+  if(left<=0)left=total;this.textContent='Pause';
+  iv=setInterval(function(){left--;draw();if(left<=0){clearInterval(iv);iv=null;$('go').textContent='Start'}},1000);draw();
+};
+$('reset').onclick=function(){clearInterval(iv);iv=null;left=total;$('go').textContent='Start';draw()};
+draw();
+
+/* theme */
+$('theme').onclick=function(){
+  var r=document.documentElement,dark=getComputedStyle(r).getPropertyValue('--bg').trim()==='#14202b';
+  r.setAttribute('data-theme',dark?'light':'dark');
+};
+</script>
+</body>
+</html>
